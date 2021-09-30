@@ -119,8 +119,8 @@ def add_task():
     return render_template("add_task.html", categories=categories)
 
 
-@app.rout("/edit_task", methods=["GET", "POST"])
-def edit_task():
+@app.route("/edit_task/<task_id>", methods=["GET", "POST"])
+def edit_task(task_id):
     task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
 
     categories = mongo.db.categories.find().sort("category_name", 1)
