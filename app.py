@@ -119,6 +119,14 @@ def add_task():
     return render_template("add_task.html", categories=categories)
 
 
+@app.rout("/edit_task", methods=["GET", "POST"])
+def edit_task():
+    task = mongo.db.tasks.find_one({"_id": ObjectId(task_id)})
+
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template("edit_task.html", task=task, categories=categories)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
